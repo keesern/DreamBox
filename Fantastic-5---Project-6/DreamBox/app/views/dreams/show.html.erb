@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+<div class="row" id="post_show">
+  <div class="col-md-8 col-md-offset-2">
+  	     <div class="panel panel panel-heading">
+		
+		  <h3><strong>What happened in your dream?</strong><br></h3>
+		  </div>
+		  <p><%= @dream.description.html_safe %></p>
+		
+
+		<div class="panel panel panel-heading">
+		  <h3><strong>When?</strong><br></h3>
+		  </div>
+		  <p><%= @dream.start_time %></p>
+		
+		<%= link_to 'Edit', edit_dream_path(@dream) ,class:"btn btn-small btn-primary"%> |
+		<%= link_to 'Back', dreams_path, class:"btn btn-small btn-primary" %>
+	</div>
+</div>
+

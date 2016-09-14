@@ -1,0 +1,28 @@
+	<header class = "navbar navbar-fixed-top navbar-inverse">
+		<div class=" container">
+			<% if user_signed_in? %>
+					  <%= link_to "DreamBox", posts_path, id:"logo" %>
+	   			<% else %>
+						<%= link_to "DreamBox", home_path, id:"logo" %>
+			<% end %> 
+			<nav>
+				<ul class = "nav navbar-nav navbar-right">
+					<% if user_signed_in? %>
+						<li><%= link_to "Home", posts_path %></li>
+	   			<% else %>
+						<li><%= link_to "Home", home_path %></li>
+					<% end %> 
+					<li><%= link_to "Your DreamBox", dreams_path %></li>
+
+					<li><%= link_to "Post", posts_path %></li>
+					<li><%= link_to "Contact", about_path %></li>
+					<% if user_signed_in? %>
+						<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+	   			<% else %>
+ 	   					<li><%= link_to "Sign In", new_user_session_path %></li>
+	   					<li><%= link_to "Sign Up",  new_user_registration_path %></li>
+	  		 <% end %>
+				</ul>
+			</nav>
+		</div>
+	</header>

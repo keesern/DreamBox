@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Wall of Dreams</h1>
+<%= link_to 'New Post', new_post_path ,class:"btn btn-lg btn-primary"%>
+  <!= the transitions can allow the post change size by user's desire>
+ 
+
+   <div class="transitions-enabled" id="posts">   
+    <% @posts.each do |post| %>
+      <div class="box panel panel-default">
+
+      <tr>
+
+        <h3><%= link_to post.name, post %></h3>
+        <!= show images here !>
+        <!= if user does not want to insert pics, then skip the pic!>
+
+        <% if post.image.url != "/images/original/missing.png" %>
+        <%= image_tag post.image.url(:medium) %>
+        <% end %>
+
+        <!= show the type or category of dream as a label such as bad dream >
+        <td><span class="label label-info"><%= post.category %></span></td>
+        <br><br>
+         <!= show the description of dream >
+        <td><%= post.description.split[0..10].join(' ').html_safe %></td>
+        
+        <!= show the time stamp and only show first name from each email address>
+        <h2>Posted at <%= time_ago_in_words(post.created_at)%> by <%= post.user.email.split("@")[0] %></h2>
+
+        <div class="panel-body">
+        <!= only the current user can edit and destroy their post>
+          <ul class="pager">
+            <% if post.user == current_user %>
+            <li><td><%= link_to 'Edit', edit_post_path(post) %></td></li>
+            <li><td><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></td></li>
+            <% end %>
+          </ul>
+        </div>
+      </tr>
+      </div>
+   <% end %>
+   
+  </div>
+
+
+
+<br>
+
+

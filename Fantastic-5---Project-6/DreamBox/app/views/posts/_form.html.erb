@@ -1,0 +1,45 @@
+
+<%= form_for @post, html: {multipart: true} do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <!= image field!>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+    <small class="text-muted">Select the image you want to upload.</small>
+  </div>
+<!= dream name field!>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+    <small class="text-muted">Give a name for your dream.</small>
+  </div>
+ <!= description field!>
+  <div class="field">
+  
+    <%= f.label :description %><br>
+
+    <%= f.cktext_area :description %>
+    <small class="text-muted">What happened in your dream?.</small>
+  </div>
+
+ <!= category of dream field!>
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+    <small class="text-muted">Good dream? Bad dream? Neutral?</small>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

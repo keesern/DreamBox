@@ -1,0 +1,31 @@
+
+    <div class="commentBox">
+
+		  <!= if user does not want to insert pics, then skip the pic!>
+		  <% if comment.image.url != "/images/original/missing.png" %>
+		  <%= image_tag comment.image.url(:medium) %>
+		  <% end %>
+
+		  <!= Show comments from other users!>
+		 
+		     <p class="text-info"><%= comment.comment.html_safe %> </p>
+		 
+
+		  <!= Show infos: user's email, time stamp !>
+
+		  <p>Replied by
+		    <%= comment.user.email %>
+		      at 
+		    <%= time_ago_in_words(comment.created_at)%> 
+		  </p>
+		  <ul class="pager">
+					<!= user have to sign in first in order to change comments' status!>
+			 		<%if comment.user == current_user %>
+
+					<li class="previous"><%= link_to "Edit", edit_post_comment_path(comment.post, comment)%></li>
+					<li class="previous"><%= link_to "Delete", [comment.post, comment], method: :delete,  data: { confirm: 'Are you sure?' } %></li>
+					<% else %>
+					<% end %>
+			</ul>		
+    </div>
+

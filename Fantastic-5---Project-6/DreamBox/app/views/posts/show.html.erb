@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<!= post show section !>
+<div class="row" id="post_show">
+  <div class="col-md-8 col-md-offset-2">
+
+    <!= show titles of post !>
+      <div class="panel panel panel-heading">
+        <h1><%= @post.name %></h1>
+      </div> 
+           <div class="panel-heading pin_image">
+                <!= show images here !>
+                <!= if user does not want to insert pics, then skip the pic!>
+                      <% if @post.image.url != "/images/original/missing.png" %>
+                        <%= image_tag @post.image.url(:large) %>
+                      <% end %>
+            </div>
+            <!= show description of dreams and the type as well>    
+            <div class="panel panel panel-default">   
+                  <p><strong><%= @post.description.html_safe %></strong></p>
+                  <br>
+                  <h4><span class="label label-info">Type: <%= @post.category %></span></h4>
+             </div>
+    </div>      
+</div>
+
+    <!= show how many comments are !>
+    <h4><p class="text-warning">There are 
+      <strong><%= @post.comments.count %></strong>
+      replies below</p>
+      <br><br>
+      <%= render @post.comments %>
+      
+    </h4>
+
+    <!= User have to sign in first in order to leave comments to others!>
+    <%if user_signed_in? %>
+
+    <!= show replys here !>
+    <h4> Reply to thread</h4> 
+    	<%= render "comments/form" %>
+    <% else %>
+    <h4> Please 
+    	<%= link_to "Sign In", new_user_session_path, class:"btn btn-small btn-primary"%>
+    	   			or 
+    	<%= link_to "Sign Up",  new_user_registration_path, class:"btn btn-small btn-primary" %>
+    	 in order to leave comments here!</h4>
+    	<% end %>
+
+    <!= Only the post's owner can edit their posts !>
+    <% if @post.user == current_user %>
+      <br>
+    	<%= link_to 'Edit', edit_post_path(@post), class:"btn btn-small btn-primary"%> 
+    	<%= link_to 'Back', posts_path, class:"btn btn-small btn-primary"%>
+    <% else %>
+    <br>	
+    <%= link_to 'Back', posts_path, class:"btn btn-small btn-primary"%>
+    <% end %>
+  </div>

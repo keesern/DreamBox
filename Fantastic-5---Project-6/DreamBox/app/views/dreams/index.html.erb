@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<!= generate the calendar for current user>
+<br><br>
+<div class="col-md-8 col-md-offset-2">
+
+
+<%= month_calendar events: @dreams do |date, dreams| %>
+  <%= date.day %>
+
+  <% dreams.each do |dream| %>
+    <div>
+      <!= only show the first three words in description>
+      <li><%= link_to dream.description.split[0..3].join(' ').html_safe, dream %></li>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Test dream's description
+<% @dreams.each do |dream| %>
+  <%= dream.description%>
+<% end %>
+-->
+
+<h1>Write Down your Dreams in your DreamBox</h1>
+<div class="col-md-8 col-md-offset-2">
+  
+      <!= Search part!>
+        <%= form_tag dreams_path, :method => 'get' do %>
+            <%= text_field_tag :search, params[:search] %></input>
+           <%= submit_tag "Search" %>
+        <% end %>
+        <br><br>
+  <%= link_to ' Create a new Dreambox Here ', new_dream_path, class:"btn btn-lg btn-primary"%>
+</div>
+
+
+   <div class="transitions-enabled" id="dreams">   
+    <% @dreams.each do |dream| %>
+      <div class="box panel panel-default">
+          <tr>
+            <td><div class="panel-heading"><%= dream.description.html_safe %></div></td>
+            <br>
+            <%= '-Dream at:' %>
+            <td><%= dream.start_time %></td>
+            
+            
+                 <ul class="pager">
+                     <li><td><%= link_to 'Show', dream %></td></li>
+                     <li> <td><%= link_to 'Edit', edit_dream_path(dream) %></td></li>
+                     <li> <td><%= link_to 'Delete', dream, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                  </ul>
+                </div>
+            </td>
+          </tr>
+       
+            <% end %>
+       </div>
+      </div>
+    </div>
+
+
+</div>
